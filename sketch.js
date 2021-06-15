@@ -1,53 +1,35 @@
-var trex, trex_running, edges;
-var groundImage;
-var ground;
+var btn_red;
+var btn_green;
 
-function preload(){
-  trex_running = loadAnimation("trex1.png","trex3.png","trex4.png");
-  groundImage = loadImage("ground2.png")
-  
+var r = 0;
+var g = 0;
+var b = 0;
+
+function setup() {
+  createCanvas(400, 400);  
+  btn_red= createButton("RED");
+  btn_red.position(100,50);
+  btn_red.mousePressed(red_bg);
+
+  btn_green= createButton("GREEN");
+  btn_green.position(250,50);
+  btn_green.mousePressed(green_bg);
 }
 
-function setup(){
-  createCanvas(600,200);
-  
-  // creating trex
-  trex = createSprite(50,160,20,50);
-  trex.addAnimation("running", trex_running);
-  edges = createEdgeSprites();
-  
-  //adding scale and position to trex
-  trex.scale = 0.5;
-  trex.x = 50
-  ground=createSprite(200,200,350,10)
-  ground.x=ground.width/2
-  ground.addImage(groundImage)
+function draw() {
+  background(r,g,b);
 }
 
+function red_bg()
+{
+r=255;
+g=0;
+b=0;
+} 
+function green_bg()
+{
+r=0;
+g=255;
+b=0;
+} 
 
-function draw(){
-  //set background color 
-  background("light blue");
-  
-  //logging the y position of the trex
-  console.log(trex.y)
-  
-  //jump when space key is pressed
-  if(keyDown("space")){
-    trex.velocityY = -10;
-  }
-  
-  trex.velocityY = trex.velocityY + 0.5;
-ground.velocityX=-5  
-  //stop trex from falling down
-  trex.collide(ground)
-  if(ground.x<0){
-  ground.x=ground.width/2
-  }
-
-  drawSprites();
-
-
-
-
-}
